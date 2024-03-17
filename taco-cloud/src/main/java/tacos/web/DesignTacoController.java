@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -64,10 +65,29 @@ public class DesignTacoController {
 	public Taco taco() {
 		return new Taco();
 	}
-
+	
+	/**
+	 * 响应用户的请求，返回配料列表
+	 * @return
+	 */
 	@GetMapping
 	public String showDesignForm() {
 		return "design";
+	}
+	
+	/**
+	 * 处理生成卷饼请求
+	 * 
+	 * @param taco 用户新提交的taco信息
+	 * @param tacoOrder 初始化的tacoOrder信息
+	 * @return
+	 */
+	@PostMapping
+	public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder) {
+		tacoOrder.addTaco(taco);
+		log.info("Processing taco: {}", taco);
+		
+		return "redirect:/orders/current";
 	}
 
 	/**
