@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -15,6 +17,12 @@ import lombok.Data;
  */
 @Data
 public class TacoOrder {
+	
+	//主键ID
+	private Long id;
+
+	//创建时间
+	private Date placedAt;
 
 	@NotBlank(message = "Delivery name is required")
 	private String deliveryName;
