@@ -18,6 +18,8 @@ public class SecurityConfig {
 	/**
 	 * 为了能够访问h2的界面，必须设置2个配置：https://www.jianshu.com/p/925d5aece6dc
 	 * 
+	 * 注意：用无痕浏览器哈，否则登录了一次，只要不关闭浏览器权限就会一直存在
+	 * 
 	 * @param http
 	 * @return
 	 * @throws Exception
@@ -29,7 +31,7 @@ public class SecurityConfig {
 				.requestMatchers("/", "/**").access("permitAll()")
 
 				.and().formLogin().loginPage("/login")
-
+				//开发环境禁用了csrf，因为会影响h2后台界面的访问
 				.and().csrf().disable().build();
 	}
 
