@@ -2,6 +2,7 @@ package tacos.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +14,8 @@ import tacos.User;
 import tacos.data.UserRepository;
 
 @Configuration
+//书中的方法过期了，根据提示选了这个，可以不用继承，功能也可以实现
+@EnableMethodSecurity
 public class SecurityConfig {
 
 	@Bean
