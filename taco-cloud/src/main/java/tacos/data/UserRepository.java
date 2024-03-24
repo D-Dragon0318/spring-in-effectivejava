@@ -1,5 +1,6 @@
 package tacos.data;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import tacos.User;
 
@@ -11,6 +12,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * @param username
 	 * @return
 	 */
+	@Query("From User where username=:username")
 	User findByUsername(String username);
 
 }
