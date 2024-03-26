@@ -4,4 +4,8 @@ spring:
     generate-unique-name: false
     name: tacocloud
 server:
-    port: 9090
+  port: 8443
+  ssl:
+    key-store: file:///C:/Users/Administrator/mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
