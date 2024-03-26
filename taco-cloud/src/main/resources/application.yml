@@ -3,9 +3,23 @@ spring:
     url: jdbc:h2:mem:tacocloud;NON_KEYWORDS=user
     generate-unique-name: false
     name: tacocloud
+
+#启用HTTPS   
 server:
   port: 8443
   ssl:
     key-store: file:///C:/Users/Administrator/mykeys.jks
     key-store-password: letmein
     key-password: letmein
+    
+#配置日志目录，设置日志级别，书中的配置是有问题的
+logging:
+   file:
+#     path: /var/logs/
+#     name: demo2.log    #这里并不会直接引用path这个路径，而是在项目根目录中
+     name: /var/logs/tacoCloud.log
+   level:
+     root: WARN
+     org:
+       springframework:
+         security: DEBUG
