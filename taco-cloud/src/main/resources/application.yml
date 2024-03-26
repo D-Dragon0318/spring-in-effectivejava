@@ -19,7 +19,12 @@ logging:
 #     name: demo2.log    #这里并不会直接引用path这个路径，而是在项目根目录中
      name: /var/logs/tacoCloud.log
    level:
-     root: WARN
+     root: INFO
      org:
        springframework:
          security: DEBUG
+                  
+#公共配置属性
+taco:
+   orders:
+     pageSize: 30

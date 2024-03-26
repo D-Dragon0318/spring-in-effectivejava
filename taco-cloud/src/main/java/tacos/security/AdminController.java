@@ -1,5 +1,6 @@
 package tacos.security;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +14,14 @@ import tacos.User;
 @Controller
 @Slf4j
 @RequestMapping("/admin")
+@ConfigurationProperties(prefix = "taco.orders")
 public class AdminController {
+
+	private int pageSize = 20;
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 
 	/**
 	 * 实现方法级别的安全
@@ -37,6 +45,17 @@ public class AdminController {
 		User user = (User) authentication.getPrincipal();
 		log.info("Processing user: {}", user);
 		return "redirect:/admin";
+	}
+
+	/**
+	 * 测试bean中消费配置属性
+	 * 
+	 * @return
+	 */
+	@GetMapping("/showPageSize")
+	public String showPageSize() {
+		log.info("Processing pageSize: {}", pageSize);
+		return "home";
 	}
 
 }
