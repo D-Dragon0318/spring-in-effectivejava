@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:tacocloud;NON_KEYWORDS=user
+    generate-unique-name: false
+    name: tacocloud
+    
+#配置日志目录，设置日志级别，书中的配置是有问题的
+logging:
+   file:
+#     path: /var/logs/
+#     name: demo2.log    #这里并不会直接引用path这个路径，而是在项目根目录中
+     name: /var/logs/tacoCloud.log
+   level:
+     root: INFO
+     org:
+       springframework:
+         security: INFO
+                  
+#公共配置属性
+taco:
+   orders:
+     pageSize: 88
