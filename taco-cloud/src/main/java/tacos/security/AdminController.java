@@ -1,5 +1,6 @@
 package tacos.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -9,19 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import tacos.CommonConfig;
 import tacos.User;
 
 @Controller
 @Slf4j
 @RequestMapping("/admin")
-@ConfigurationProperties(prefix = "taco.orders")
 public class AdminController {
-
-	private int pageSize = 20;
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
+	
+	@Autowired
+	private CommonConfig commonConfig;
 
 	/**
 	 * 实现方法级别的安全
@@ -54,7 +52,7 @@ public class AdminController {
 	 */
 	@GetMapping("/showPageSize")
 	public String showPageSize() {
-		log.info("Processing pageSize: {}", pageSize);
+		log.info("Processing pageSize: {}", commonConfig.getPageSize());
 		return "home";
 	}
 

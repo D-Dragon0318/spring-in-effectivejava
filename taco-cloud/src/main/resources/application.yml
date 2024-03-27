@@ -5,12 +5,12 @@ spring:
     name: tacocloud
 
 #启用HTTPS   
-server:
-  port: 8443
-  ssl:
-    key-store: file:///C:/Users/Administrator/mykeys.jks
-    key-store-password: letmein
-    key-password: letmein
+#server:
+#  port: 8443
+#  ssl:
+#    key-store: file:///C:/Users/Administrator/mykeys.jks
+#    key-store-password: letmein
+#    key-password: letmein
     
 #配置日志目录，设置日志级别，书中的配置是有问题的
 logging:
@@ -27,4 +27,4 @@ logging:
 #公共配置属性
 taco:
    orders:
-     pageSize: 30
+     pageSize: 130
