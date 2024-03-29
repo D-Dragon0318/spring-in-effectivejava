@@ -21,7 +21,6 @@ import tacos.User;
 import tacos.UserVO;
 import tacos.data.UserRepository;
 import tacos.security.RegistrationForm;
-import tacos.web.AdminController;
 
 @RestController
 @Slf4j
