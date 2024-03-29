@@ -30,16 +30,32 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * 查询所有用户：http://localhost:8080/api/users?recent
+	 * @return
+	 */
 	@GetMapping(params = "recent")
 	public Iterable<User> recentUsers() {
 		return userRepo.findAll();
 	}
 
+	/**
+	 * 查询单个用户：http://localhost:8080/api/users/1
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public Optional<User> userById(@PathVariable("id") Long id) {
 		return userRepo.findById(id);
 	}
-
+	
+	/**
+	 * 查询单个用户：http://localhost:8080/api/users/other/1
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/other/{id}")
 	public ResponseEntity<User> userByIdEntity(@PathVariable("id") Long id) {
 		Optional<User> optUser = userRepo.findById(id);
@@ -48,7 +64,13 @@ public class UserController {
 		}
 		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
-
+	
+	/**
+	 * 新增用户：
+	 * 
+	 * @param form
+	 * @return
+	 */
 	@PostMapping(consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User postTaco(@RequestBody RegistrationForm form) {
