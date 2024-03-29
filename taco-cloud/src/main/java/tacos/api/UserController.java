@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import tacos.CommonConfig;
 import tacos.User;
+import tacos.UserVO;
 import tacos.data.UserRepository;
 import tacos.security.RegistrationForm;
 
@@ -29,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CommonConfig commonConfig;
 
 	/**
 	 * 查询所有用户：http://localhost:8080/api/users?recent
@@ -75,6 +80,19 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User postTaco(@RequestBody RegistrationForm form) {
 		return userRepo.save(form.toUser(passwordEncoder));
+	}
+	
+	/**
+	 * 测试rest服务：
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/testRest/{id}")
+	public ResponseEntity<UserVO> testRest(@PathVariable("id") Long id) {
+		UserVO user = commonConfig.restTemplate().getForObject("http://localhost:8080/api/users/{id}", UserVO.class, id);
+		System.out.println(user);
+		return new ResponseEntity<>(user, HttpStatus.OK); 
 	}
 
 }
