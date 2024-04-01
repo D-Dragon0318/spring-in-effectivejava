@@ -1,5 +1,6 @@
 package tacos;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,16 @@ public class CommonConfig {
 	@Bean
 	public RestTemplate restTemplate() {
 	  return new RestTemplate();
+	}
+	
+	/**
+	 * 声明队列
+	 * 
+	 * @return
+	 */
+	@Bean
+	public Queue hello() {
+		return new Queue("user");
 	}
 
 }

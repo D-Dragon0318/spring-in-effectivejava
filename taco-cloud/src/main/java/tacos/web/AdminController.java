@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 import tacos.CommonConfig;
 import tacos.User;
+import tacos.UserVO;
+import tacos.messaging.UserMessagingService;
 
 @Controller
 @Slf4j
@@ -20,6 +22,9 @@ public class AdminController {
 	
 	@Autowired
 	private CommonConfig commonConfig;
+	
+	@Autowired
+	private UserMessagingService userMessagingService;
 
 	/**
 	 * 实现方法级别的安全
@@ -53,6 +58,21 @@ public class AdminController {
 	@GetMapping("/showPageSize")
 	public String showPageSize() {
 		log.info("Processing pageSize: {}", commonConfig.getPageSize());
+		return "home";
+	}
+	
+	/**
+	 * 测试发送消息：
+	 * 
+	 * @return
+	 */
+	@GetMapping("/testSendMessage")
+	public String testSendMessage() {
+		UserVO user = new UserVO();
+		user.setUsername("code");
+		userMessagingService.sendUser(user);
+		log.info("Sent user: {}", user);
+
 		return "home";
 	}
 

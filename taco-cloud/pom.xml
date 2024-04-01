@@ -66,7 +66,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>		
+		<!-- tag::amqpStarter[] -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
+		<!-- end::amqpStarter[] -->
 	</dependencies>
 
 	<build>

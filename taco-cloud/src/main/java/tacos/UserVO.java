@@ -1,9 +1,16 @@
 package tacos;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class UserVO {
+public class UserVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3449967021050669071L;
+
 	private Long id;
 
 	private String username;
