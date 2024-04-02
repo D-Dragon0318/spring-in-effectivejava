@@ -16,10 +16,7 @@ public class RabbitUserMessagingService implements UserMessagingService {
 	private RabbitTemplate rabbit;
 
 	public void sendUser(UserVO user) {
-		MessageConverter converter = rabbit.getMessageConverter();
-	    MessageProperties props = new MessageProperties();
-	    Message message = converter.toMessage(user, props);
-	    rabbit.send("user", message);
+	    rabbit.convertAndSend("user", user);
 	}
 
 }
