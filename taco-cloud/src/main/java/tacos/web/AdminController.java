@@ -73,7 +73,7 @@ public class AdminController {
 	@GetMapping("/testSendMessage")
 	public String testSendMessage() {
 		UserVO user = new UserVO();
-		user.setUsername("code");
+		user.setUsername("代码悦读code");
 		userMessagingService.sendUser(user);
 		log.info("Sent user: {}", user);
 
