@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import tacos.CommonConfig;
 import tacos.User;
 import tacos.UserVO;
+import tacos.messaging.RabbitUserReceiver;
 import tacos.messaging.UserMessagingService;
 
 @Controller
@@ -25,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserMessagingService userMessagingService;
+	
+	@Autowired
+	private RabbitUserReceiver rabbitUserReceiver;
 
 	/**
 	 * 实现方法级别的安全
@@ -72,6 +76,19 @@ public class AdminController {
 		user.setUsername("code");
 		userMessagingService.sendUser(user);
 		log.info("Sent user: {}", user);
+
+		return "home";
+	}
+	
+	/**
+	 * 测试拉取消息：
+	 * 
+	 * @return
+	 */
+	@GetMapping("/testReceiveMessage")
+	public String testReceiveMessage() {
+		UserVO user = rabbitUserReceiver.receiveUser();
+		log.info("Receive user: {}", user);
 
 		return "home";
 	}
