@@ -12,7 +12,15 @@ spring:
     producer:
       keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
       valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
-
+    consumer:
+      groupId: code
+      keyDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      valueDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
 #启用HTTPS   
 server:
   port: 8081
