@@ -73,6 +73,10 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<!-- end::amqpStarter[] -->
+		<dependency>
+		     <groupId>org.springframework.kafka</groupId>
+		     <artifactId>spring-kafka</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

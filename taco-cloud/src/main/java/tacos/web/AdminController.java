@@ -1,7 +1,6 @@
 package tacos.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import tacos.CommonConfig;
 import tacos.User;
 import tacos.UserVO;
+import tacos.messaging.KafkaUserMessagingService;
+import tacos.messaging.RabbitUserMessagingService;
 import tacos.messaging.RabbitUserReceiver;
-import tacos.messaging.UserMessagingService;
 
 @Controller
 @Slf4j
@@ -25,7 +25,10 @@ public class AdminController {
 	private CommonConfig commonConfig;
 	
 	@Autowired
-	private UserMessagingService userMessagingService;
+	private RabbitUserMessagingService rabbitUserMessagingService;
+	
+	@Autowired
+	private KafkaUserMessagingService kafkaUserMessagingService;
 	
 	@Autowired
 	private RabbitUserReceiver rabbitUserReceiver;
@@ -74,7 +77,7 @@ public class AdminController {
 	public String testSendMessage() {
 		UserVO user = new UserVO();
 		user.setUsername("代码悦读code");
-		userMessagingService.sendUser(user);
+		rabbitUserMessagingService.sendUser(user);
 		log.info("Sent user: {}", user);
 
 		return "home";
@@ -89,6 +92,21 @@ public class AdminController {
 	public String testReceiveMessage() {
 		UserVO user = rabbitUserReceiver.receiveUser();
 		log.info("Receive user: {}", user);
+
+		return "home";
+	}
+	
+	/**
+	 * 测试向Kafka中发送消息：
+	 * 
+	 * @return
+	 */
+	@GetMapping("/testSendMessageForKafka")
+	public String testSendMessageForKafka() {
+		UserVO user = new UserVO();
+		user.setUsername("代码悦读code");
+		kafkaUserMessagingService.sendUser(user);
+		log.info("Sent user: {}", user);
 
 		return "home";
 	}
