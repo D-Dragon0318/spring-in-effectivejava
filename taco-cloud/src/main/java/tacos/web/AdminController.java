@@ -116,7 +116,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * 测试简单集成流
+	 * 测试简单集成流：讲文件内容转换成大写
 	 * @return
 	 */
 	@GetMapping("/testSimpleFlow")
