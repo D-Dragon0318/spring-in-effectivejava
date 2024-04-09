@@ -4,6 +4,7 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +17,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "taco.orders")
 @Data
 @Validated
+@ImportResource("classpath:/filewriter-config.xml")
 public class CommonConfig {
 
 //	@Min(value = 5, message = "must be between 5 and 25")

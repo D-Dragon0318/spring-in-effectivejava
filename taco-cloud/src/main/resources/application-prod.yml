@@ -3,6 +3,31 @@ spring:
     url: jdbc:h2:mem:tacocloud;NON_KEYWORDS=user
     generate-unique-name: false
     name: tacocloud
+  data:
+    rest:
+     base-path: /data-api
+  kafka:
+    bootstrap-servers:
+    - localhost:9092
+    producer:
+      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      groupId: code
+      keyDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      valueDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+#启用HTTPS   
+server:
+  port: 8081
+#  ssl:
+#    key-store: file:///C:/Users/Administrator/mykeys.jks
+#    key-store-password: letmein
+#    key-password: letmein
     
 #配置日志目录，设置日志级别，书中的配置是有问题的
 logging:
@@ -14,9 +39,9 @@ logging:
      root: INFO
      org:
        springframework:
-         security: INFO
+         security: DEBUG
                   
 #公共配置属性
 taco:
    orders:
-     pageSize: 88
+     pageSize: 130
