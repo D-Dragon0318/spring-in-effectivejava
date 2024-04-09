@@ -15,6 +15,7 @@ import tacos.UserVO;
 import tacos.messaging.KafkaUserMessagingService;
 import tacos.messaging.RabbitUserMessagingService;
 import tacos.messaging.RabbitUserReceiver;
+import tacos.simpleflow.FileWriterGateway;
 
 @Controller
 @Slf4j
@@ -32,6 +33,9 @@ public class AdminController {
 	
 	@Autowired
 	private RabbitUserReceiver rabbitUserReceiver;
+	
+	@Autowired
+	private FileWriterGateway gateway;
 
 	/**
 	 * 实现方法级别的安全
@@ -108,6 +112,16 @@ public class AdminController {
 		kafkaUserMessagingService.sendUser(user);
 		log.info("Sent user: {}", user);
 
+		return "home";
+	}
+	
+	/**
+	 * 测试简单集成流
+	 * @return
+	 */
+	@GetMapping("/testSimpleFlow")
+	public String testSimpleFlow() {
+		gateway.writeToFile("simple.txt", "Hello, Spring Integration!代码阅读");
 		return "home";
 	}
 
