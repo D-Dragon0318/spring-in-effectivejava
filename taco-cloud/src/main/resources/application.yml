@@ -45,3 +45,14 @@ logging:
 taco:
    orders:
      pageSize: 130
+     
+tacocloud:
+  email:
+    host: imap.163.com
+    mailbox: INBOX
+    username: 2024
+    password: 123
+    poll-rate: 10000
+    
+    
+    
