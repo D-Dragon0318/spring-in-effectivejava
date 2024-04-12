@@ -17,7 +17,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "taco.orders")
 @Data
 @Validated
-@ImportResource("classpath:/filewriter-config.xml")
+//@ImportResource("classpath:/filewriter-config.xml")
 public class CommonConfig {
 
 //	@Min(value = 5, message = "must be between 5 and 25")
