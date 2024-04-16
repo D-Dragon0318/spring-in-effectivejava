@@ -1,5 +1,10 @@
 package ds.inaction.skiplist.redis;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import redis.clients.jedis.Jedis;
 
@@ -23,15 +28,32 @@ public class Top10ProductRatings {
 	public List<String> getTop10Products() {
 		return jedis.zrevrange("top10_products", 0, 9);
 	}
+	
+	public void addAndUpdateTop10(String member, double rating) throws FileNotFoundException, IOException {
+		
+		// 读取Lua脚本文件内容
+        StringBuilder scriptContent = new StringBuilder();
+        try (FileReader reader = new FileReader("src/main/resources/script.lua")) {
+            char[] buffer = new char[1024];
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                scriptContent.append(buffer, 0, n);
+            }
+        }
 
-	public static void main(String[] args) {
+        // 使用eval方法执行Lua脚本
+        String luaScript = scriptContent.toString();
+        jedis.eval(luaScript, Collections.singletonList("top10_products"), Arrays.asList(String.valueOf(rating), member));
+	}
+
+	public static void main(String[] args) throws FileNotFoundException, IOException {
 		Top10ProductRatings service = new Top10ProductRatings();
 
 		// 添加商品评分
-		service.addProductRating("product1", 4.5);
-		service.addProductRating("product2", 4.8);
-		service.addProductRating("product1", 4.7);
-		service.addProductRating("product3", 5.7);
+		service.addAndUpdateTop10("product1", 4.5);
+		service.addAndUpdateTop10("product2", 4.8);
+		service.addAndUpdateTop10("product1", 4.7);
+		service.addAndUpdateTop10("product3", 5.7);
 
 		// 获取当前的TOP10商品
 		List<String> top10Products = service.getTop10Products();
