@@ -1,6 +1,7 @@
 package ds.inaction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -34,7 +35,9 @@ public class Leaderboard {
         while (iterator.hasNext() && topScores.size() < limit) {
             topScores.add(iterator.next());
         }
-        return topScores;
+        // 返回不可变视图
+        return Collections.unmodifiableList(new ArrayList<>(topScores));
+//        return topScores;
     }
 	
 	/**
