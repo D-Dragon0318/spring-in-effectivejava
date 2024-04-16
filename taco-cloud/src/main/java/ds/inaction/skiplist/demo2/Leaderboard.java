@@ -1,4 +1,4 @@
-package ds.inaction;
+package ds.inaction.skiplist.demo2;
 
 import java.util.ArrayList;
 import java.util.Collections;

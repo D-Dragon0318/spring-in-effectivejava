@@ -1,4 +1,4 @@
-package ds.inaction;
+package ds.inaction.skiplist.demo2;
 
 /**
  * 玩家信息：分数越高排名越靠前；分数相同，时间戳越大，排序越靠后

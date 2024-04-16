@@ -1,4 +1,4 @@
-package ds.inaction;
+package ds.inaction.skiplist.demo2;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
