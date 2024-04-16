@@ -3,6 +3,9 @@ package ds.inaction;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * 优化：限制排行榜的大小，当超过设定数量时，移除分数最低的玩家。
+ */
 public class demo {
 	public static void main(String[] args) {
 		Leaderboard leaderboard = new Leaderboard(3);

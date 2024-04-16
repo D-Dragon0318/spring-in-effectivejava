@@ -3,6 +3,9 @@ package ds.inaction.skiplist.demo1;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * 使用ConcurrentSkipListSet实现TOPN功能：分数越高排名越靠前；分数相同，时间戳越大，排序越靠后
+ */
 public class demo {
 	public static void main(String[] args) {
 		Leaderboard leaderboard = new Leaderboard();
