@@ -10,7 +10,14 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * 排行榜功能
  */
 public class Leaderboard {
+	
+	private final int maxCapacity;
+	
 	private final ConcurrentSkipListSet<PlayerScore> leaderboard = new ConcurrentSkipListSet<>();
+	
+	public Leaderboard(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
 	
 	/**
 	 * 添加玩家：
@@ -21,6 +28,10 @@ public class Leaderboard {
 	 */
 	public void addScore(String playerId, int score, int timestamp) {
 		leaderboard.add(new PlayerScore(playerId, score, timestamp));
+		// 检查并移除超出容量限制的最低分玩家
+        while (leaderboard.size() > maxCapacity) {
+            leaderboard.pollLast();
+        }
 	}
 	
 	/**
@@ -29,14 +40,9 @@ public class Leaderboard {
 	 * @param limit
 	 * @return
 	 */
-	public List<PlayerScore> getTopN(int limit) {
-        List<PlayerScore> topScores = new ArrayList<>();
-        Iterator<PlayerScore> iterator = leaderboard.iterator();
-        while (iterator.hasNext() && topScores.size() < limit) {
-            topScores.add(iterator.next());
-        }
+	public List<PlayerScore> getTopN() {
         // 返回不可变视图
-        return Collections.unmodifiableList(new ArrayList<>(topScores));
+        return Collections.unmodifiableList(new ArrayList<>(leaderboard));
 //        return topScores;
     }
 	

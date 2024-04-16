@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class demo {
 	public static void main(String[] args) {
-		Leaderboard leaderboard = new Leaderboard();
+		Leaderboard leaderboard = new Leaderboard(3);
 		AtomicInteger counter = new AtomicInteger(0); // 全局唯一的计数器模拟时间戳
 		leaderboard.addScore("player1", 100, counter.incrementAndGet());
 		leaderboard.addScore("player2", 200, counter.incrementAndGet());
@@ -16,7 +16,7 @@ public class demo {
 		leaderboard.addScore("player7", 360, counter.incrementAndGet());
 
 		// 输出前3名玩家
-		List<PlayerScore> topPlayers = leaderboard.getTopN(3);
+		List<PlayerScore> topPlayers = leaderboard.getTopN();
 		for (PlayerScore player : topPlayers) {
 			System.out.println("Player ID: " + player.getPlayerId() + ", Score: " + player.getScore());
 		}
