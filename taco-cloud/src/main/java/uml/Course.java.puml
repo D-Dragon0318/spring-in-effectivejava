@@ -1,0 +1,7 @@
+@startuml
+interface uml.类图.IStudentRecord {
+~ void register()
+~ void updateContactInfo(String,String)
+}
+
+@enduml

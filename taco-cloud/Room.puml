@@ -1,0 +1,9 @@
+@startuml
+class uml.类图.Classroom {
+- List<Student> students
+- Room room
++ void addStudent(Student)
+}
+
+
+@enduml
