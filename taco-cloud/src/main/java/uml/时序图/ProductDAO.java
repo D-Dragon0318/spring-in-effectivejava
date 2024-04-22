@@ -1,4 +1,4 @@
-package uml;
+package uml.时序图;
 
 public class ProductDAO {
     public Product getProductById(String id) {

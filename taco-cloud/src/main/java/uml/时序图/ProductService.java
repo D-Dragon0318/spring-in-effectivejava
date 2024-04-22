@@ -1,4 +1,4 @@
-package uml;
+package uml.时序图;
 
 public class ProductService {
     private ProductDAO productDAO = new ProductDAO();
