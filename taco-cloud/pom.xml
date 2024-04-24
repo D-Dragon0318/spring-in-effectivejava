@@ -101,8 +101,12 @@
 		    <artifactId>jedis</artifactId>
 		    <version>5.1.2</version>
 		</dependency>
-
-
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>33.1.0-jre</version>
+		</dependency>
 	</dependencies>
 
 	<build>
