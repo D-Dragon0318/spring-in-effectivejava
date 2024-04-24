@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +21,7 @@ public class LRUCacheWithGuava<K, V> {
 						// 模拟从数据库或网络加载数据的逻辑
                         // 这里我们简单地返回一个与键相关的值
                         // 在实际应用中，您需要根据键从数据源加载数据
+						System.out.println("从数据库中加载key " + key);
                         return (V) ("Data for " + key);
 					}
 				});
@@ -34,6 +37,10 @@ public class LRUCacheWithGuava<K, V> {
 
 	public void put(K key, V value) {
 		cache.put(key, value);
+	}
+
+	public Set<K> getCacheKeys(){
+		return cache.asMap().keySet();
 	}
 	
 }

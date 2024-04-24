@@ -12,10 +12,11 @@ public class main {
 		System.out.println(lruCache.get(1)); // 输出 "one"
 		lruCache.put(4, "four"); // 这将导致key 2对应的"two"被移除，因为它是最近最少使用的
 
-		System.out.println(lruCache.get(2)); // 输出 null，因为2已经被移除出缓存
-		System.out.println(lruCache.get(3)); // 输出 "three"
+		System.out.println(lruCache.get(2)); // 执行load，因为key 2已经被移除出缓存；因为执行了get, 此时又会导致key 3对应的"three"被移除，因为它是最近最少使用的
+		System.out.println(lruCache.get(3)); // 执行load，因为key 3已经被移除出缓存
+		System.out.println(lruCache.getCacheKeys());
+		System.out.println(lruCache.get(2));
+		System.out.println(lruCache.getCacheKeys());
 		System.out.println(lruCache.get(4)); // 输出 "four"
-
-//		lruCache.put(5, "five"); // 这将导致key 1对应的"one"被移除，因为缓存只能容纳3个元素
 	}
 }
