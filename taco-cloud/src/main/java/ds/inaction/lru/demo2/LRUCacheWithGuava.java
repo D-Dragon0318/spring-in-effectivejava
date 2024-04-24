@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +13,9 @@ public class LRUCacheWithGuava<K, V> {
 	private LoadingCache<K, V> cache;
 
 	public LRUCacheWithGuava(int cacheSize, long expireAfterWrite) {
-		cache = CacheBuilder.newBuilder().maximumSize(cacheSize).expireAfterWrite(expireAfterWrite, TimeUnit.MINUTES) // 可选，设置写入后过期时间
+		cache = CacheBuilder.newBuilder()
+				.maximumSize(cacheSize)
+				.expireAfterWrite(expireAfterWrite, TimeUnit.MINUTES) // 可选，设置写入后过期时间
 				.build(new CacheLoader<K, V>() { // 或者使用CacheLoader.from()指定加载函数
 					@Override
 					public V load(K key) throws Exception {
