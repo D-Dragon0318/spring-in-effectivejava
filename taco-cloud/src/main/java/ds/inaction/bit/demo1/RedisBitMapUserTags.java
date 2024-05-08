@@ -7,7 +7,8 @@ import redis.clients.jedis.Jedis;
 public class RedisBitMapUserTags {
 	
 	private Jedis jedis;
-	private static final String USER_TAGS_KEY_PREFIX = "user:tags:";
+	private static final String USER_TAGS_KEY_PREFIX = "user:tags:";//一个用户对应一个标签位图
+	private static final String TAG_USERS_KEY_PREFIX = "tag:users:";//一个标签对应一个用户位图
 	
 	// 假定我们有预定义的标签列表与位的映射，这里简化处理，实际应用中这应该根据你的设计来
 	private static final String[]  tags = {"技术", "音乐", "旅行", "阅读", "运动"}; 
@@ -19,6 +20,7 @@ public class RedisBitMapUserTags {
 	// 为用户设置标签（假设标签ID从0开始）
 	public void setTagForUser(int userId, int tagId) {
 		jedis.setbit(USER_TAGS_KEY_PREFIX + userId, tagId, true);
+		jedis.setbit(TAG_USERS_KEY_PREFIX + tagId, userId, true);
 	}
 
 	// 检查用户是否有指定标签
@@ -29,6 +31,7 @@ public class RedisBitMapUserTags {
 	// 移除用户标签
 	public void removeTagForUser(int userId, int tagId) {
 		jedis.setbit(USER_TAGS_KEY_PREFIX + userId, tagId, false);
+		jedis.setbit(TAG_USERS_KEY_PREFIX + tagId, userId, false);
 	}
 	
 	// 查找某个用户身上的所有标签：可以通过遍历位图的方式来实现。不过，这种方法在标签数量很大时效率较低。
@@ -51,6 +54,20 @@ public class RedisBitMapUserTags {
 	public void printTagsEff(int userId) {
 		Set<String> userTags = jedis.smembers(USER_TAGS_KEY_PREFIX + userId);
 		System.out.println("User " + userId + " has tags: " + userTags.toString());		
+	}
+	
+	// 查找某标签的所有用户
+	// 添加用户到标签
+	public void addUserToTag(String userId, String tag) {
+		jedis.sadd(USER_TAGS_KEY_PREFIX + tag, userId);
+	}	
+	public Set<String> getUsersWithTag(String tag) {
+	    return jedis.smembers(USER_TAGS_KEY_PREFIX + tag);
+	}
+	
+	//统计某标签下的用户个数
+	public void countUsersWithTag(String tag) {
+		System.out.println(jedis.bitcount(USER_TAGS_KEY_PREFIX + tag));
 	}
 
 	public static void main(String[] args) {
