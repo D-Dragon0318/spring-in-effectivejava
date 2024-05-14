@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class main {
 	// 使用示例
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
-		SafeLRUCacheWithGuavaReload cache = new SafeLRUCacheWithGuavaReload(3, 10);
+		SafeLRUCacheWithGuavaAsyncReloading cache = new SafeLRUCacheWithGuavaAsyncReloading(3, 10);
 
 		System.out.println("cache get");
         String rs = cache.get(10L);
