@@ -39,7 +39,11 @@ logging:
      root: INFO
      org:
        springframework:
-         security: DEBUG
+         security: OFF   
+         messaging: OFF      
+       apache:
+         kafka: OFF
+   
                   
 #公共配置属性
 taco:
