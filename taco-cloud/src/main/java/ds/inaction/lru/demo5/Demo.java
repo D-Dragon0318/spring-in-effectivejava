@@ -4,26 +4,24 @@ import java.util.concurrent.*;
 
 public class Demo {	
 
-	private static SafeLRUCacheWithGuava<Integer, String> lruCache = new SafeLRUCacheWithGuava<>(3, 10);
+	private static SafeLRUCacheWithGuava<Integer, String> lruCache = new SafeLRUCacheWithGuava<>(3, 3);
 	
 	// 使用示例
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		
-		lruCache.put(1, "one");
-		lruCache.put(2, "two");
-		lruCache.put(3, "three");
+		  // 首次访问缓存项，触发加载
+        System.out.println("Initial access: " + lruCache.get(1));
 
-		ExecutorService executor = Executors.newFixedThreadPool(10);
+        // 等待一段时间，让刷新周期过去
+        Thread.sleep(5000); // 等待5秒，确保超过refreshAfterWrite设置的时间
 
-		// 创建多个线程同时访问热点Key
-		for (int i = 0; i < 10; i++) {
-			Future<String> future = executor.submit(() -> lruCache.get(1));
-			System.out.println(future.get());
-		}
+        // 再次访问，查看是否自动刷新
+        System.out.println("After refresh period: " + lruCache.get(1));
 
-		// 关闭线程池
-		executor.shutdown();
-		executor.awaitTermination(1, TimeUnit.MINUTES);
+        Thread.sleep(1000); // 等待1秒，确保未超过refreshAfterWrite设置的时间
+        
+        // 再次访问，查看是否读取的缓存
+        System.out.println("After refresh period: " + lruCache.get(1));
 	}
 	
 	/**
