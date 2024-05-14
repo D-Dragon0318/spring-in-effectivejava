@@ -23,7 +23,7 @@ public class SafeLRUCacheWithGuavaAsyncReloading {
 			@Override
 			@Nonnull
 			public String load(@Nonnull Long key) throws Exception {
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 				return System.currentTimeMillis() + "：load";
 			}
 		}, executorService);

@@ -1,5 +1,7 @@
 package tacos.web;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -7,7 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import ds.inaction.lru.demo5.SafeLRUCacheWithGuava;
+import ds.inaction.lru.demo5.SafeLRUCacheWithGuavaAsyncReloading;
 import lombok.extern.slf4j.Slf4j;
 import tacos.CommonConfig;
 import tacos.User;
@@ -17,7 +22,7 @@ import tacos.messaging.RabbitUserMessagingService;
 import tacos.messaging.RabbitUserReceiver;
 import tacos.simpleflow.FileWriterGateway;
 
-@Controller
+@RestController
 @Slf4j
 @RequestMapping("/admin")
 public class AdminController {
@@ -36,6 +41,9 @@ public class AdminController {
 	
 	@Autowired
 	private FileWriterGateway gateway;
+	
+	private	SafeLRUCacheWithGuavaAsyncReloading lruCache = new SafeLRUCacheWithGuavaAsyncReloading(3, 3);
+	private	AtomicInteger atomicNum = new AtomicInteger();
 
 	/**
 	 * 实现方法级别的安全
@@ -123,6 +131,26 @@ public class AdminController {
 	public String testSimpleFlow() {
 		gateway.writeToFile("simple.txt", "Hello, Spring Integration!代码阅读");
 		return "home";
+	}
+	
+	/**
+	 * 测试异步刷新功能：
+	 * @return
+	 */
+	@GetMapping("/testPutCache")
+	public String testPutCache() {
+		lruCache.put(1L, "one");
+		return "Success";
+	}
+	
+	/**
+	 * 测试异步刷新功能：
+	 * @return
+	 */
+	@GetMapping("/testGetCache")
+	public String testGetCache() {		
+		String temp = String.valueOf(atomicNum.incrementAndGet());
+		return temp + lruCache.get(1L);
 	}
 
 }
