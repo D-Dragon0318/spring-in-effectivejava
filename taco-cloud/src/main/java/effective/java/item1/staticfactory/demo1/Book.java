@@ -1,4 +1,4 @@
-package effective.java.item1.staticfactory;
+package effective.java.item1.staticfactory.demo1;
 
 public class Book {
 	

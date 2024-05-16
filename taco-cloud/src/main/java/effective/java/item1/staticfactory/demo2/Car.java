@@ -1,4 +1,4 @@
-package effective.java.item1.staticfactory;
+package effective.java.item1.staticfactory.demo2;
 
 import java.util.HashMap;
 import java.util.Map;
