@@ -1,7 +1,5 @@
 package effective.java.item1.staticfactory.demo3;
 
-import effective.java.item1.construct.Car;
-
 public abstract class Book {
 	
 	protected String title;
