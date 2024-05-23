@@ -2,7 +2,7 @@ package effective.java.item9;
 
 import java.io.IOException;  
   
-public class TryFinallyExample {
+public class TryFinallyExample2 {
     static class MyResource {
         public void close() throws IOException {
             // 模拟资源关闭时可能抛出的异常
@@ -17,6 +17,7 @@ public class TryFinallyExample {
             throw new IllegalArgumentException("业务逻辑中的异常");
         }catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("业务逻辑中的异常");
+//			System.out.println("业务逻辑中的异常：" + e.getMessage());
         } finally {
             try {
                 resource.close(); // 这里可能抛出IOException
