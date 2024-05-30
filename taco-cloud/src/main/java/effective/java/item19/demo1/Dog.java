@@ -1,6 +1,6 @@
 package effective.java.item19.demo1;
 
-public class Dog implements Animal {
+public class Dog extends AnimalBase {
 	
 	@Override
 	public void eat() {
