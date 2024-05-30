@@ -12,4 +12,9 @@ public class Dog implements Animal {
 		System.out.println("Dog sleeps in a dog bed.");
 	}
 	
+	@Override  
+    public void makeSound() {  
+        System.out.println("Dog barks.");  
+    }  
+	
 }
